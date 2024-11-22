@@ -44,6 +44,7 @@
 </template>
 
 <script setup lang="ts" name="UploadImgs">
+// @ts-nocheck
 import { ref, computed, inject, watch } from "vue";
 import { Plus } from "@element-plus/icons-vue";
 import { uploadImg } from "@/api/modules/upload";

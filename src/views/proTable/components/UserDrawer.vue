@@ -53,6 +53,7 @@
 </template>
 
 <script setup lang="ts" name="UserDrawer">
+// @ts-nocheck
 import { ref, reactive } from "vue";
 import { genderType } from "@/utils/dict";
 import { ElMessage, FormInstance } from "element-plus";

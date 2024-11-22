@@ -1,19 +1,31 @@
 {
-  "name": "geeker-admin",
+  "name": "@tonyer/geeker-admin-components",
   "private": true,
   "version": "1.2.0",
   "type": "module",
   "description": "geeker-admin open source management system",
+  "main": "./dist/geeker-component-lib.umd.cjs",
+  "module": "./dist/geeker-component-lib.js",
+  "exports": {
+    ".": {
+      "import": "./dist/geeker-component-lib.js",
+      "require": "./dist/geeker-component-lib.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
   "author": {
     "name": "Geeker",
     "email": "848130454@qq.com",
     "url": "https://github.com/HalseySpicy"
   },
   "license": "MIT",
-  "homepage": "https://github.com/HalseySpicy/Geeker-Admin",
+  "homepage": "https://github.com/MQpeng/Geeker-Admin",
   "repository": {
     "type": "git",
-    "url": "git@github.com:HalseySpicy/Geeker-Admin.git"
+    "url": "git@github.com:MQpeng/Geeker-Admin.git"
   },
   "bugs": {
     "url": "https://github.com/HalseySpicy/Geeker-Admin/issues"
@@ -24,6 +36,7 @@
     "build:dev": "vue-tsc && vite build --mode development",
     "build:test": "vue-tsc && vite build --mode test",
     "build:pro": "vue-tsc && vite build --mode production",
+    "build:lib": "vue-tsc && vite build --mode production --config vite.config.lib.ts",
     "type:check": "vue-tsc --noEmit --skipLibCheck",
     "preview": "pnpm build:dev && vite preview",
     "lint:eslint": "eslint --fix --ext .js,.ts,.vue ./src",

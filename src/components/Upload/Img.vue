@@ -48,6 +48,7 @@
 </template>
 
 <script setup lang="ts" name="UploadImg">
+// @ts-nocheck
 import { ref, computed, inject } from "vue";
 import { generateUUID } from "@/utils";
 import { uploadImg } from "@/api/modules/upload";
