@@ -43,10 +43,21 @@ export default defineConfig((): UserConfig => {
         entry: resolve(__dirname, "./src/lib.ts"),
         name: "GeekerAdminComponents",
         fileName: "geeker-component-lib",
-        formats: ["es", "cjs"]
+        formats: ["es"]
       },
       rollupOptions: {
-        external: ["vue", "vue-router", "pinia", "element-plus", "echarts", "@wangeditor/editor", "@wangeditor/editor-for-vue"]
+        external: [
+          "vue",
+          "vue-router",
+          "vue-i18n",
+          "pinia",
+          "element-plus",
+          "echarts",
+          "@wangeditor/editor",
+          "@wangeditor/editor-for-vue",
+          "sortablejs",
+          "vuedraggable"
+        ]
       },
       minify: false
     }
