@@ -43,7 +43,7 @@ export default defineConfig((): UserConfig => {
         entry: resolve(__dirname, "./src/lib.ts"),
         name: "GeekerAdminComponents",
         fileName: "geeker-component-lib",
-        formats: ["umd"]
+        formats: ["es"]
       },
       rollupOptions: {
         external: [
