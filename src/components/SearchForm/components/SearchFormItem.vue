@@ -2,7 +2,7 @@
   <component
     :is="column.search?.render ?? `el-${column.search?.el}`"
     v-bind="{ ...handleSearchProps, ...placeholder, searchParam: _searchParam, clearable }"
-    v-model.trim="_searchParam[column.search?.key ?? handleProp(column.prop!)]"
+    v-model="_searchParam[column.search?.key ?? handleProp(column.prop!)]"
     :data="column.search?.el === 'tree-select' ? columnEnum : []"
     :options="['cascader', 'select-v2'].includes(column.search?.el!) ? columnEnum : []"
   >
