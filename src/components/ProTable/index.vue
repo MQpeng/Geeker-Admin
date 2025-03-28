@@ -92,6 +92,7 @@
     <slot name="pagination">
       <Pagination
         v-if="pagination"
+        :page-sizes="[10, 15, 25, 50, 80, 100, 200]"
         :pageable="pageable"
         :handle-size-change="handleSizeChange"
         :handle-current-change="handleCurrentChange"
@@ -125,7 +126,7 @@ export interface ProTableProps {
   requestError?: (params: any) => void; // 表格 api 请求错误监听 ==> 非必传
   dataCallback?: (data: any) => any; // 返回数据的回调函数，可以对数据进行处理 ==> 非必传
   title?: string; // 表格标题 ==> 非必传
-  pagination?: boolean; // 是否需要分页组件 ==> 非必传（默认为true）
+  pagination?: boolean | {pageSize: number}; // 是否需要分页组件 ==> 非必传（默认为true）
   initParam?: any; // 初始化请求参数 ==> 非必传（默认为{}）
   border?: boolean; // 是否带有纵向边框 ==> 非必传（默认为true）
   toolButton?: ("refresh" | "setting" | "search")[] | boolean; // 是否显示表格功能按钮 ==> 非必传（默认为true）

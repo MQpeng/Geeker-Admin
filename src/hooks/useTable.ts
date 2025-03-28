@@ -11,7 +11,7 @@ import { reactive, computed, toRefs } from "vue";
 export const useTable = (
   api?: (params: any) => Promise<any>,
   initParam: object = {},
-  isPageable: boolean = true,
+  isPageable: boolean | {pageSize: number} = true,
   dataCallBack?: (data: any) => any,
   requestError?: (error: any) => void
 ) => {
@@ -34,6 +34,10 @@ export const useTable = (
     // 总参数(包含分页和查询参数)
     totalParam: {}
   });
+
+  if(typeof isPageable === 'object'){
+    state.pageable.pageSize = isPageable.pageSize || state.pageable.pageSize
+  }
 
   /**
    * @description 分页查询参数(只包括分页和表格字段排序,其他排序方式可自行配置)
