@@ -40,6 +40,7 @@
       :border="border"
       :row-key="rowKey"
       @selection-change="selectionChange"
+      @sort-change="sortChange"
     >
       <!-- 默认插槽 -->
       <slot />
@@ -170,7 +171,7 @@ const radio = ref("");
 const { selectionChange, selectedList, selectedListIds, isSelected } = useSelection(props.rowKey);
 
 // 表格操作 Hooks
-const { tableData, pageable, searchParam, searchInitParam, getTableList, search, reset, handleSizeChange, handleCurrentChange } =
+const { tableData, pageable, searchParam, searchInitParam, sortParam, getTableList, search, reset, handleSizeChange, handleCurrentChange, sortChange } =
   useTable(props.requestApi, props.initParam, props.pagination, props.dataCallback, props.requestError);
 
 // 清空选中数据列表
@@ -306,6 +307,7 @@ defineExpose({
   pageable,
   searchParam,
   searchInitParam,
+  sortParam,
   isSelected,
   selectedList,
   selectedListIds,

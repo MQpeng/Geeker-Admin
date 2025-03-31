@@ -8,7 +8,10 @@
           <el-switch v-model="scope.row.isShow"></el-switch>
         </el-table-column>
         <el-table-column v-slot="scope" prop="sortable" align="center" label="排序">
-          <el-switch v-model="scope.row.sortable"></el-switch>
+          <el-switch model-value="!!scope.row.sortable" @change="scope.row.sortable = true"></el-switch>
+        </el-table-column>
+        <el-table-column v-slot="scope" prop="sortable" align="center" label="服务端排序">
+          <el-switch model-value="scope.row.sortable === 'custom'" @change="scope.row.sortable = 'custom'"></el-switch>
         </el-table-column>
         <template #empty>
           <div class="table-empty">

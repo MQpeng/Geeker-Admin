@@ -31,6 +31,8 @@ export const useTable = (
     searchParam: {},
     // 初始化默认的查询参数
     searchInitParam: {},
+    // 排序的参数
+    sortParam: {},
     // 总参数(包含分页和查询参数)
     totalParam: {}
   });
@@ -136,6 +138,10 @@ export const useTable = (
     getTableList();
   };
 
+  const sortChange = (columns, prop, sort) => {
+    state.sortParam[prop] = sort;
+  }
+
   return {
     ...toRefs(state),
     getTableList,
@@ -143,6 +149,7 @@ export const useTable = (
     reset,
     handleSizeChange,
     handleCurrentChange,
-    updatedTotalParam
+    updatedTotalParam,
+    sortChange
   };
 };

@@ -16,6 +16,9 @@ export namespace Table {
     totalParam: {
       [key: string]: any;
     };
+    sortParam: {
+      [key: string]: any;
+    };
     icon?: {
       [key: string]: any;
     };
