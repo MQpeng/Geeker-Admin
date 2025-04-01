@@ -2,6 +2,7 @@
   <!-- 分页组件 -->
   <el-pagination
     :background="true"
+    size="small"
     :current-page="pageable.pageNum"
     :page-size="pageable.pageSize"
     :page-sizes="[10, 25, 50, 100]"

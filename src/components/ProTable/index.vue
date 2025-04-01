@@ -92,7 +92,7 @@
     <!-- 分页组件 -->
     <slot name="pagination">
       <Pagination
-        v-if="pagination"
+        v-if="pagination && pageable.total"
         :page-sizes="[10, 15, 25, 50, 80, 100, 200]"
         :pageable="pageable"
         :handle-size-change="handleSizeChange"
