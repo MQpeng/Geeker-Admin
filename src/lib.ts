@@ -8,7 +8,6 @@ import SelectFilter from "@/components/SelectFilter/index.vue";
 import SelectIcon from "@/components/SelectIcon/index.vue";
 import SvgIcon from "@/components/SvgIcon/index.vue";
 import TreeFilter from "@/components/TreeFilter/index.vue";
-import WangEditor from "@/components/WangEditor/index.vue";
 
 import { useTable } from "@/hooks/useTable";
 import { useSelection } from "@/hooks/useSelection";
@@ -25,7 +24,6 @@ export {
   SelectIcon,
   SvgIcon,
   TreeFilter,
-  WangEditor,
   useTable,
   useSelection,
   useDownload
