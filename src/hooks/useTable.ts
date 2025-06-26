@@ -75,6 +75,10 @@ export const useTable = (
         ...state.totalParam,
       });
       dataCallBack && (data = dataCallBack(data));
+      if(!Array.isArray(data)){
+        console.error(`table data must be array, but it is ${JSON.stringify(data)}, please check 'dataCallBack' or 'requestApi'`);
+        data = []
+      }
       state.tableData = isPageable ? data.list : data;
       // 解构后台返回的分页数据 (如果有分页更新分页信息)
       if (isPageable) {
