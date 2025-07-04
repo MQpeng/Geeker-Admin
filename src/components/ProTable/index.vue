@@ -274,7 +274,10 @@ const emit = defineEmits<{
   search: [];
   reset: [];
   dragSort: [{ newIndex?: number; oldIndex?: number }];
+  selectionChange: []
 }>();
+
+watch(() => selectedList.value, val => emit("selectionChange", val))
 
 const _search = () => {
   search();
