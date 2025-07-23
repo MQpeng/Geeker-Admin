@@ -61,7 +61,8 @@ export const useTable = (
    * @description 获取表格数据
    * @return void
    * */
-  const getTableList = async () => {
+  const getTableList = async (loading = false) => {
+    state.loading = loading
     try {
       if (!api) return;
       // 先把初始化参数和分页参数放到总参数里面
@@ -119,10 +120,9 @@ export const useTable = (
    * @return void
    * */
   const search = () => {
-    state.loading = true;
     state.pageable.pageNum = 1;
     updatedTotalParam();
-    getTableList();
+    getTableList(true);
   };
 
   /**
@@ -130,12 +130,11 @@ export const useTable = (
    * @return void
    * */
   const reset = () => {
-    state.loading = true;
     state.pageable.pageNum = 1;
     // 重置搜索表单的时，如果有默认搜索参数，则重置默认的搜索参数
     state.searchParam = { ...state.searchInitParam };
     updatedTotalParam();
-    getTableList();
+    getTableList(true);
   };
 
   /**
@@ -146,8 +145,7 @@ export const useTable = (
   const handleSizeChange = (val: number) => {
     state.pageable.pageNum = 1;
     state.pageable.pageSize = val;
-    state.loading = true;
-    getTableList();
+    getTableList(true);
   };
 
   /**
@@ -157,8 +155,7 @@ export const useTable = (
    * */
   const handleCurrentChange = (val: number) => {
     state.pageable.pageNum = val;
-    state.loading = true;
-    getTableList();
+    getTableList(true);
   };
 
   const sortChange = (columns, prop, sort) => {
