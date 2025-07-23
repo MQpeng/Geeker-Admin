@@ -20,7 +20,7 @@
       </div>
       <div v-if="toolButton" class="header-button-ri">
         <slot name="toolButton">
-          <el-button v-if="showToolButton('refresh')" :icon="Refresh" circle @click="getTableList" />
+          <el-button v-if="showToolButton('refresh')" :icon="Refresh" circle @click="getTableList(true)" />
           <el-button v-if="showToolButton('setting') && columns.length" :icon="Operation" circle @click="openColSetting" />
           <el-button
             v-if="showToolButton('search') && searchColumns?.length"
