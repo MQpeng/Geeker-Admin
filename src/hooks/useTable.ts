@@ -146,6 +146,7 @@ export const useTable = (
   const handleSizeChange = (val: number) => {
     state.pageable.pageNum = 1;
     state.pageable.pageSize = val;
+    state.loading = true;
     getTableList();
   };
 
@@ -156,6 +157,7 @@ export const useTable = (
    * */
   const handleCurrentChange = (val: number) => {
     state.pageable.pageNum = val;
+    state.loading = true;
     getTableList();
   };
 
