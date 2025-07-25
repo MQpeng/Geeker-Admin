@@ -47,6 +47,7 @@ interface ProTableProps {
   searchCol: number | Record<BreakPoint, number>;
   search: (params: any) => void; // 搜索方法
   reset: (params: any) => void; // 重置方法
+  isCollapsed?:boolean;
 }
 
 // 默认值
