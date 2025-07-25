@@ -52,7 +52,7 @@ interface ProTableProps {
 // 默认值
 const props = withDefaults(defineProps<ProTableProps>(), {
   columns: () => [],
-  searchParam: () => ({})
+  searchParam: () => ({}),
   isCollapsed: true
 });
 
