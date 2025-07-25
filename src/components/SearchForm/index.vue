@@ -33,7 +33,7 @@
   </div>
 </template>
 <script setup lang="ts" name="SearchForm">
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { ColumnProps } from "@/components/ProTable/interface";
 import { BreakPoint } from "@/components/Grid/interface";
 import { Delete, Search, ArrowDown, ArrowUp } from "@element-plus/icons-vue";
@@ -53,6 +53,7 @@ interface ProTableProps {
 const props = withDefaults(defineProps<ProTableProps>(), {
   columns: () => [],
   searchParam: () => ({})
+  isCollapsed: true
 });
 
 // 获取响应式设置
@@ -69,7 +70,9 @@ const getResponsive = (item: ColumnProps) => {
 };
 
 // 是否默认折叠搜索项
-const collapsed = ref(true);
+const collapsed = ref(props.isCollapsed);
+
+watch(() => props.isCollapsed, val => collapsed.value = val);
 
 // 获取响应式断点
 const gridRef = ref();
