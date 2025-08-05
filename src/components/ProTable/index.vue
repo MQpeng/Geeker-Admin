@@ -225,8 +225,9 @@ const setEnumMap = async ({ prop, enum: enumValue }: ColumnProps) => {
   enumMap.value.set(prop!, []);
 
   // 当前 enum 为后台数据需要请求数据，则调用该请求接口，并存储到 enumMap
-  const { data } = await enumValue();
-  enumMap.value.set(prop!, data);
+  const result = await enumValue();
+  const data = Array.isArray(result) ? result : result.data;
+  enumMap.value.set(prop!, data || []);
 };
 
 // 注入 enumMap
