@@ -17,12 +17,27 @@
     <!-- 表格头部 操作按钮 -->
     <div class="table-header">
       <div class="header-button-lf">
-        <slot name="tableHeader" :selected-list="selectedList" :selected-list-ids="selectedListIds" :is-selected="isSelected" />
+        <slot
+          name="tableHeader"
+          :selected-list="selectedList"
+          :selected-list-ids="selectedListIds"
+          :is-selected="isSelected"
+        />
       </div>
       <div v-if="toolButton" class="header-button-ri">
         <slot name="toolButton">
-          <el-button v-if="showToolButton('refresh')" :icon="Refresh" circle @click="getTableList(true)" />
-          <el-button v-if="showToolButton('setting') && columns.length" :icon="Operation" circle @click="openColSetting" />
+          <el-button
+            v-if="showToolButton('refresh')"
+            :icon="Refresh"
+            circle
+            @click="getTableList(true)"
+          />
+          <el-button
+            v-if="showToolButton('setting') && columns.length"
+            :icon="Operation"
+            circle
+            @click="openColSetting"
+          />
           <el-button
             v-if="showToolButton('search') && searchColumns?.length"
             :icon="Search"
@@ -61,7 +76,11 @@
               <slot v-else :name="item.type" v-bind="scope" />
             </template>
             <!-- radio -->
-            <el-radio v-if="item.type == 'radio'" v-model="radio" :label="scope.row[rowKey]">
+            <el-radio
+              v-if="item.type == 'radio'"
+              v-model="radio"
+              :label="scope.row[rowKey]"
+            >
               <i></i>
             </el-radio>
             <!-- sort -->
@@ -129,14 +148,14 @@ export interface ProTableProps {
   requestError?: (params: any) => void; // 表格 api 请求错误监听 ==> 非必传
   dataCallback?: (data: any) => any; // 返回数据的回调函数，可以对数据进行处理 ==> 非必传
   title?: string; // 表格标题 ==> 非必传
-  pageSizes?:number[];
-  pagination?: boolean | {pageSize: number}; // 是否需要分页组件 ==> 非必传（默认为true）
+  pageSizes?: number[];
+  pagination?: boolean | { pageSize: number }; // 是否需要分页组件 ==> 非必传（默认为true）
   initParam?: any; // 初始化请求参数 ==> 非必传（默认为{}）
   border?: boolean; // 是否带有纵向边框 ==> 非必传（默认为true）
   toolButton?: ("refresh" | "setting" | "search")[] | boolean; // 是否显示表格功能按钮 ==> 非必传（默认为true）
   rowKey?: string; // 行数据的 Key，用来优化 Table 的渲染，当表格数据多选时，所指定的 id ==> 非必传（默认为 id）
   searchCol?: number | Record<BreakPoint, number>; // 表格搜索项 每列占比配置 ==> 非必传 { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }
-  isCollapsed?:boolean; // 是否默认折叠
+  isCollapsed?: boolean; // 是否默认折叠
 }
 
 // 接受父组件参数，配置默认值
@@ -150,7 +169,7 @@ const props = withDefaults(defineProps<ProTableProps>(), {
   toolButton: true,
   rowKey: "id",
   searchCol: () => ({ xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }),
-  isCollapsed: true
+  isCollapsed: true,
 });
 
 // table 实例
@@ -160,25 +179,52 @@ const tableRef = ref<InstanceType<typeof ElTable>>();
 const uuid = ref("id-" + generateUUID());
 
 // column 列类型
-const columnTypes: TypeProps[] = ["selection", "radio", "index", "expand", "sort"];
+const columnTypes: TypeProps[] = [
+  "selection",
+  "radio",
+  "index",
+  "expand",
+  "sort",
+];
 
 // 是否显示搜索模块
 const isShowSearch = ref(true);
 
 // 控制 ToolButton 显示
 const showToolButton = (key: "refresh" | "setting" | "search") => {
-  return Array.isArray(props.toolButton) ? props.toolButton.includes(key) : props.toolButton;
+  return Array.isArray(props.toolButton)
+    ? props.toolButton.includes(key)
+    : props.toolButton;
 };
 
 // 单选值
 const radio = ref("");
 
 // 表格多选 Hooks
-const { selectionChange, selectedList, selectedListIds, isSelected } = useSelection(props.rowKey);
+const { selectionChange, selectedList, selectedListIds, isSelected } =
+  useSelection(props.rowKey);
 
 // 表格操作 Hooks
-const { tableData, pageable, searchParam, searchInitParam, sortParam, getTableList, search, reset, loading, handleSizeChange, handleCurrentChange, sortChange } =
-  useTable(props.requestApi, props.initParam, props.pagination, props.dataCallback, props.requestError);
+const {
+  tableData,
+  pageable,
+  searchParam,
+  searchInitParam,
+  sortParam,
+  getTableList,
+  search,
+  reset,
+  loading,
+  handleSizeChange,
+  handleCurrentChange,
+  sortChange,
+} = useTable(
+  props.requestApi,
+  props.initParam,
+  props.pagination,
+  props.dataCallback,
+  props.requestError
+);
 
 // 清空选中数据列表
 const clearSelection = () => tableRef.value!.clearSelection();
@@ -205,7 +251,10 @@ watch(() => props.initParam, getTableList, { deep: true });
 
 // 接收 columns 并设置为响应式
 const tableColumns = ref<ColumnProps[]>(props.columns);
-watch(() => props.columns, col => tableColumns.value = col || []);
+watch(
+  () => props.columns,
+  (col) => (tableColumns.value = col || [])
+);
 
 // 扁平化 columns
 const flatColumns = computed(() => flatColumnsFunc(tableColumns.value));
@@ -216,10 +265,15 @@ const setEnumMap = async ({ prop, enum: enumValue }: ColumnProps) => {
   if (!enumValue) return;
 
   // 如果当前 enumMap 存在相同的值 return
-  if (enumMap.value.has(prop!) && (typeof enumValue === "function" || enumMap.value.get(prop!) === enumValue)) return;
+  if (
+    enumMap.value.has(prop!) &&
+    (typeof enumValue === "function" || enumMap.value.get(prop!) === enumValue)
+  )
+    return;
 
   // 当前 enum 为静态数据，则直接存储到 enumMap
-  if (typeof enumValue !== "function") return enumMap.value.set(prop!, unref(enumValue!));
+  if (typeof enumValue !== "function")
+    return enumMap.value.set(prop!, unref(enumValue!));
 
   // 为了防止接口执行慢，而存储慢，导致重复请求，所以预先存储为[]，接口返回后再二次存储
   enumMap.value.set(prop!, []);
@@ -234,8 +288,11 @@ const setEnumMap = async ({ prop, enum: enumValue }: ColumnProps) => {
 provide("enumMap", enumMap);
 
 // 扁平化 columns 的方法
-const flatColumnsFunc = (columns: ColumnProps[], flatArr: ColumnProps[] = []) => {
-  columns.forEach(async col => {
+const flatColumnsFunc = (
+  columns: ColumnProps[],
+  flatArr: ColumnProps[] = []
+) => {
+  columns.forEach(async (col) => {
     if (col._children?.length) flatArr.push(...flatColumnsFunc(col._children));
     flatArr.push(col);
 
@@ -247,13 +304,13 @@ const flatColumnsFunc = (columns: ColumnProps[], flatArr: ColumnProps[] = []) =>
     // 设置 enumMap
     await setEnumMap(col);
   });
-  return flatArr.filter(item => !item._children?.length);
+  return flatArr.filter((item) => !item._children?.length);
 };
 
 // 过滤需要搜索的配置项 && 排序
 const searchColumns = computed(() => {
   return flatColumns.value
-    ?.filter(item => item.search?.el || item.search?.render)
+    ?.filter((item) => item.search?.el || item.search?.render)
     .sort((a, b) => a.search!.order! - b.search!.order!);
 });
 
@@ -270,7 +327,7 @@ searchColumns.value?.forEach((column, index) => {
 
 // 列设置 ==> 需要过滤掉不需要设置的列
 const colRef = ref();
-const colSetting = tableColumns.value!.filter(item => {
+const colSetting = tableColumns.value!.filter((item) => {
   const { type, prop, isSetting } = item;
   return !columnTypes.includes(type!) && prop !== "operation" && isSetting;
 });
@@ -281,10 +338,13 @@ const emit = defineEmits<{
   search: [];
   reset: [];
   dragSort: [{ newIndex?: number; oldIndex?: number }];
-  selectionChange: [{ [key: string]: any }[]]
+  selectionChange: [{ [key: string]: any }[]];
 }>();
 
-watch(() => selectedList.value, val => emit("selectionChange", val))
+watch(
+  () => selectedList.value,
+  (val) => emit("selectionChange", val)
+);
 
 const _search = () => {
   search();
@@ -303,10 +363,10 @@ const dragSort = () => {
     handle: ".move",
     animation: 300,
     onEnd({ newIndex, oldIndex }) {
-      const [removedItem] = processTableData.value.splice(oldIndex!, 1);
-      processTableData.value.splice(newIndex!, 0, removedItem);
+      // const [removedItem] = processTableData.value.splice(oldIndex!, 1);
+      // processTableData.value.splice(newIndex!, 0, removedItem);
       emit("dragSort", { newIndex, oldIndex });
-    }
+    },
   });
 };
 
@@ -330,6 +390,6 @@ defineExpose({
   handleSizeChange,
   handleCurrentChange,
   clearSelection,
-  enumMap
+  enumMap,
 });
 </script>
