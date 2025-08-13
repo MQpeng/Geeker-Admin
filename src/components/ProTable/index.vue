@@ -358,6 +358,7 @@ const _reset = () => {
 
 // 表格拖拽排序
 const dragSort = () => {
+  if(!props.columns.some(v => v.type === 'sort')) return;
   const tbody = document.querySelector(`#${uuid.value} tbody`) as HTMLElement;
   Sortable.create(tbody, {
     handle: ".move",
