@@ -143,7 +143,7 @@ import Sortable from "sortablejs";
 export interface ProTableProps {
   columns: ColumnProps[]; // 列配置项  ==> 必传
   data?: any[]; // 静态 table data 数据，若存在则不会使用 requestApi 返回的 data ==> 非必传
-  requestApi?: (params: any) => Promise<any>; // 请求表格数据的 api ==> 非必传
+  requestApi?: (params: any, sortParam?:any) => Promise<any>; // 请求表格数据的 api ==> 非必传
   requestAuto?: boolean; // 是否自动执行请求 api ==> 非必传（默认为true）
   requestError?: (params: any) => void; // 表格 api 请求错误监听 ==> 非必传
   dataCallback?: (data: any) => any; // 返回数据的回调函数，可以对数据进行处理 ==> 非必传
