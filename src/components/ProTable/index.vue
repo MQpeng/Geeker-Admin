@@ -357,9 +357,9 @@ const _reset = () => {
   emit("reset");
 };
 
-function sortChange(...args) {
-  sortChangeInner(...args);
-  emit("sortChange", ...args);
+function sortChange(column: any, prop: string, order: any) {
+  sortChangeInner(column, prop, order);
+  emit("sortChange", column, prop, order);
 }
 
 // 表格拖拽排序
