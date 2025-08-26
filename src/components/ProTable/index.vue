@@ -217,7 +217,7 @@ const {
   loading,
   handleSizeChange,
   handleCurrentChange,
-  sortChange,
+  sortChange: sortChangeInner,
 } = useTable(
   props.requestApi,
   props.initParam,
@@ -339,6 +339,7 @@ const emit = defineEmits<{
   reset: [];
   dragSort: [{ newIndex?: number; oldIndex?: number }];
   selectionChange: [{ [key: string]: any }[]];
+  sortChange: [column: any, prop: string, order: any];
 }>();
 
 watch(
@@ -356,9 +357,14 @@ const _reset = () => {
   emit("reset");
 };
 
+function sortChange(...args) {
+  sortChangeInner(...args);
+  emit("sortChange", ...args);
+}
+
 // 表格拖拽排序
 const dragSort = () => {
-  if(!props.columns.some(v => v.type === 'sort')) return;
+  if (!props.columns.some((v) => v.type === "sort")) return;
   const tbody = document.querySelector(`#${uuid.value} tbody`) as HTMLElement;
   Sortable.create(tbody, {
     handle: ".move",

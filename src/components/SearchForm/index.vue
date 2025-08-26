@@ -61,7 +61,7 @@ const props = withDefaults(defineProps<ProTableProps>(), {
 const getResponsive = (item: ColumnProps) => {
   return {
     span: item.search?.span,
-    offset: item.search?.offset ?? 0,
+    offset: item.search?.offset ?? 0, 
     xs: item.search?.xs,
     sm: item.search?.sm,
     md: item.search?.md,
