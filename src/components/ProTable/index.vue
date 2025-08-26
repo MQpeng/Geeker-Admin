@@ -339,7 +339,7 @@ const emit = defineEmits<{
   reset: [];
   dragSort: [{ newIndex?: number; oldIndex?: number }];
   selectionChange: [{ [key: string]: any }[]];
-  sortChange: [column: any, prop: string, order: any];
+  sortChange: [{ column: any; prop: string; order: any }];
 }>();
 
 watch(
@@ -359,7 +359,7 @@ const _reset = () => {
 
 function sortChange({ column: any, prop: string, order: any }) {
   sortChangeInner(column, prop, order);
-  emit("sortChange", {column, prop, order});
+  emit("sortChange", { column, prop, order });
 }
 
 // 表格拖拽排序
