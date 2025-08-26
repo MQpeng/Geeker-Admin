@@ -357,7 +357,7 @@ const _reset = () => {
   emit("reset");
 };
 
-function sortChange({ column: any, prop: string, order: any }) {
+function sortChange({ column, prop, order }) {
   sortChangeInner(column, prop, order);
   emit("sortChange", { column, prop, order });
 }
