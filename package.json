@@ -1,6 +1,6 @@
 {
   "name": "@tonyer/geeker-admin-components",
-  "version": "1.2.26",
+  "version": "1.2.27",
   "type": "module",
   "description": "geeker-admin open source management system",
   "main": "./dist/geeker-component-lib.js",
