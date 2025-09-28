@@ -62,7 +62,7 @@ export const useTable = (
    * @return void
    * */
   const getTableList = async (loading = false) => {
-    state.loading = loading
+    state.loading = loading;
     try {
       if (!api) return;
       // 先把初始化参数和分页参数放到总参数里面
@@ -71,22 +71,27 @@ export const useTable = (
         initParam,
         isPageable ? pageParam.value : {}
       );
-      let { data } = await api({
-        ...state.searchInitParam,
-        ...state.totalParam,
-      }, state.sortParam);
+      let { data } = await api(
+        {
+          ...state.searchInitParam,
+          ...state.totalParam,
+        },
+        state.sortParam
+      );
+      if (isPageable && Array.isArray(data)) {
+        data = { list: data, total: data.length };
+      }
       dataCallBack && (data = dataCallBack(data));
       let tableData = isPageable ? data.list : data;
-      if(isPageable){
-        tableData = Array.isArray(data) ? data : data.list;
-      }else{
-        tableData = data;
-      }
-      if(!Array.isArray(tableData)){
-        console.error(`table data must be array, but it is ${JSON.stringify(tableData)}, please check 'dataCallBack' or 'requestApi'`);
+      if (!Array.isArray(tableData)) {
+        console.error(
+          `table data must be array, but it is ${JSON.stringify(
+            tableData
+          )}, please check 'dataCallBack' or 'requestApi'`
+        );
         tableData = [];
       }
-      state.tableData = tableData
+      state.tableData = tableData;
       // 解构后台返回的分页数据 (如果有分页更新分页信息)
       if (isPageable) {
         state.pageable.total = Number(data.total);
