@@ -77,6 +77,11 @@ export const useTable = (
       }, state.sortParam);
       dataCallBack && (data = dataCallBack(data));
       let tableData = isPageable ? data.list : data;
+      if(isPageable){
+        tableData = Array.isArray(data) ? data : data.list;
+      }else{
+        tableData = data;
+      }
       if(!Array.isArray(tableData)){
         console.error(`table data must be array, but it is ${JSON.stringify(tableData)}, please check 'dataCallBack' or 'requestApi'`);
         tableData = [];
