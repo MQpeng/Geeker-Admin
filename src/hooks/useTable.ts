@@ -97,6 +97,7 @@ export const useTable = (
         state.pageable.total = Number(data.total);
       }
     } catch (error) {
+      console.error(error);
       requestError && requestError(error);
     } finally {
       state.loading = false;
