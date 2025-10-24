@@ -24,7 +24,16 @@
           :is-selected="isSelected"
         />
       </div>
-      <div v-if="toolButton" class="header-button-ri">
+      <div
+        v-if="toolButton || $slots.tableHeaderRight"
+        class="header-button-ri"
+      >
+        <slot
+          name="tableHeaderRight"
+          :selected-list="selectedList"
+          :selected-list-ids="selectedListIds"
+          :is-selected="isSelected"
+        />
         <slot name="toolButton">
           <el-button
             v-if="showToolButton('refresh')"
