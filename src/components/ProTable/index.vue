@@ -135,7 +135,7 @@
 </template>
 
 <script setup lang="ts" name="ProTable">
-import { ref, watch, provide, onMounted, unref, computed, reactive } from "vue";
+import { ref, watch, provide, onMounted, unref, computed, reactive, nextTick } from "vue";
 import { ElTable } from "element-plus";
 import { useTable } from "@/hooks/useTable";
 import { useSelection } from "@/hooks/useSelection";
@@ -241,8 +241,12 @@ const clearSelection = () => tableRef.value!.clearSelection();
 // 初始化表格数据 && 拖拽排序
 onMounted(() => {
   dragSort();
-  props.requestAuto && getTableList();
   props.data && (pageable.value.total = props.data.length);
+  if(props.requestAuto){
+    nextTick(() => {
+      getTableList()
+    });
+  }
 });
 
 // 处理表格数据
