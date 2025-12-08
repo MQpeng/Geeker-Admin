@@ -31,7 +31,7 @@
             <SearchFormItem :column="item" :search-param="searchParam" />
           </el-form-item>
         </GridItem>
-        <GridItem suffix>
+        <GridItem suffix ref="suffixRef">
           <div class="operation">
             <el-button
               type="primary"
@@ -61,13 +61,14 @@
   </div>
 </template>
 <script setup lang="ts" name="SearchForm">
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, provide } from "vue";
 import { ColumnProps } from "@/components/ProTable/interface";
 import { BreakPoint } from "@/components/Grid/interface";
 import { Refresh, Search, ArrowDown, ArrowUp } from "@element-plus/icons-vue";
 import SearchFormItem from "./components/SearchFormItem.vue";
 import Grid from "@/components/Grid/index.vue";
 import GridItem from "@/components/Grid/components/GridItem.vue";
+import { useElementSize } from "@vueuse/core";
 
 interface ProTableProps {
   columns?: ColumnProps[]; // 搜索配置列
@@ -77,6 +78,13 @@ interface ProTableProps {
   reset: (params: any) => void; // 重置方法
   isCollapsed?: boolean;
 }
+
+const suffixRef = ref();
+const { width: suffixWidth } = useElementSize(suffixRef);
+const isSuffixOverflow = computed(
+  () => 0 < suffixWidth.value && suffixWidth.value < 241
+);
+provide("isSuffixOverflow", isSuffixOverflow);
 
 // 默认值
 const props = withDefaults(defineProps<ProTableProps>(), {
