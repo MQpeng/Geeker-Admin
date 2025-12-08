@@ -88,16 +88,30 @@ const hiddenIndex = ref(-1);
 provide("shouldHiddenIndex", hiddenIndex);
 
 // 注入 cols
-const gridCols = computed(() => {
+const gridColsBase = computed(() => {
   let cols: any = null;
   if (typeof props.cols === "object") {
     cols = props.cols[breakPoint.value] ?? props.cols;
   } else {
     cols = props.cols;
   }
-  if (!isSuffixOverflow.value) return cols;
-  return Math.max(cols - 1, 1);
+  return cols;
 });
+const gridCols = ref(gridColsBase.value);
+watch(
+  () => gridColsBase.value,
+  (base) => {
+    gridCols.value = base;
+  }
+);
+watch(
+  () => isSuffixOverflow.value,
+  (isOver) => {
+    if (isOver) {
+      gridCols.value = Math.max(gridCols.value - 1, 1);
+    }
+  }
+);
 provide("cols", gridCols);
 
 // 寻找需要开始折叠的字段 index
