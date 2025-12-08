@@ -169,7 +169,7 @@ const findIndex = () => {
 
 // 断点变化时执行 findIndex
 watch(
-  () => breakPoint.value,
+  () => [breakPoint.value, gridCols.value],
   () => {
     if (props.collapsed) findIndex();
   }
