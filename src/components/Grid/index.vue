@@ -70,7 +70,7 @@ const resize = (e: UIEvent) => {
     case width >= 1200 && width < 1920:
       breakPoint.value = "lg";
       break;
-    case width >= 1920:
+    case width >= 1900:
       breakPoint.value = "xl";
       break;
   }
