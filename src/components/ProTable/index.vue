@@ -120,7 +120,7 @@
       </template>
     </el-table>
     <!-- 分页组件 -->
-    <slot name="pagination">
+    <slot name="pagination" :pageable="pageable" :handle-size-chang="handleSizeChange" :handle-current-change="handleCurrentChange">
       <Pagination
         v-if="pagination && pageable.total"
         :page-sizes="pageSizes"
