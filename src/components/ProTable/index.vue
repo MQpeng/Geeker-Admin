@@ -76,7 +76,7 @@
 </template>
 
 <script setup lang="ts" name="ProTable">
-import { ref, watch, provide, onMounted, unref, computed, reactive, nextTick } from 'vue';
+import { ref, watch, provide, onMounted, unref, computed, reactive, nextTick, inject } from 'vue';
 import { ElTable } from 'element-plus';
 import { useTable } from '@/hooks/useTable';
 import { useSelection } from '@/hooks/useSelection';
